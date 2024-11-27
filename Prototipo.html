@@ -16,7 +16,7 @@
       padding: 20px;
       text-align: center;
     }
-    .container {
+    main.container {
       display: flex;
       padding: 20px;
     }
@@ -34,6 +34,7 @@
       margin-bottom: 10px;
       padding: 10px;
       width: 100%;
+      border-radius: 5px;
     }
     .sidebar button.active {
       background-color: #2980b9;
@@ -46,6 +47,9 @@
       width: 100%;
       height: 300px;
       margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
     }
     .document-actions {
       display: flex;
@@ -57,6 +61,15 @@
       color: white;
       cursor: pointer;
       padding: 10px 20px;
+      border-radius: 5px;
+    }
+    @media (max-width: 768px) {
+      main.container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -64,19 +77,28 @@
   <header>
     <h1>Justice Police Zone</h1>
   </header>
-  <div class="container">
-    <div class="sidebar">
+  <main class="container">
+    <aside class="sidebar">
       <h2>Documents</h2>
-      <button class="active">Acta de inspección a lugares.pdf</button>
-      <button>Reporte de iniciación.pdf</button>
-    </div>
-    <div class="document-viewer">
+      <button class="active" aria-label="Acta de inspección a lugares">Acta de inspección a lugares.pdf</button>
+      <button aria-label="Reporte de iniciación">Reporte de iniciación.pdf</button>
+    </aside>
+    <section class="document-viewer">
       <h2>Acta de inspección a lugares.pdf</h2>
       <textarea placeholder="Document content goes here..."></textarea>
       <div class="document-actions">
-        <button>Download Document</button>
+        <button aria-label="Download document">Download Document</button>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll('.sidebar button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelector('.sidebar button.active').classList.remove('active');
+        this.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
+
